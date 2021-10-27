@@ -1,7 +1,14 @@
-import os
+from html.parser import HTMLParser
+from os import chdir, path, splitext, walk, getcwd
+from file_walker import walker
 
 
-root_directory = ""
+# programs to write:
+# if_term_in_file
+# inject_code
+# css_duplicate_check
+
+root_directory = getcwd
 
 # Test name - Bionavedtool. 
 ##########################################################################################################################################################
@@ -22,18 +29,5 @@ root_directory = ""
 #
 ##########################################################################################################################################################
 
-
-def search(root_mother):
-
-    os.chdir(root_mother)
-    for root_child, dirs, files in os.walk('.'):
-        for page in files:
-            print(page)
-        print("\n--------- Those were the web pages. Now, to the directories. ---------\n")
-        for folder in dirs:
-            print(folder)
-        print("\n----------------------- Now back to the files! -----------------------\n")
-
-test_directory = "../../BIOS Navigator"
-
-search(test_directory)
+search_term = input("Input the code we're searching for: \n")
+walker(root_directory, search_term)
