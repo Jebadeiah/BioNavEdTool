@@ -1,6 +1,7 @@
-from html.parser import HTMLParser
-from os import chdir, path, splitext, walk, getcwd
-from file_walker import walker
+from pathlib import Path
+
+from code_injector import code_injector
+from file_walker import file_walker
 
 
 # programs to write:
@@ -8,7 +9,11 @@ from file_walker import walker
 # inject_code
 # css_duplicate_check
 
-root_directory = getcwd
+root_directory = Path('.')
+injection = """\
+    <div>
+        <button>Blue</button>
+    </div>"""
 
 # Test name - Bionavedtool. 
 ##########################################################################################################################################################
@@ -16,7 +21,7 @@ root_directory = getcwd
 # Below are functions I need to write#
 #
 ##########################################################################################################################################################
-#
+#<
 # 1. Function to scrub for files with a specific extension and store their locations in a... dicitonary? Some sort of key, val data structure. I don't yet
 # know how many dimensions...
 #
@@ -27,7 +32,12 @@ root_directory = getcwd
 # those in a separate dictionary. We'll then be given the option to rename the class and refactor the code in all HTML that previously used that class to
 # the new name. 
 #
+# addon 4. We can choose to open a program called tree_planter, where you start with a single empty text field and a '+' button. Pressing the + button 
+# adds more text fields in that row. Putting text in the text field causes a new, empty text field to appear below it in a tree. Once you've built out
+# the whole directory tree, press a button to create that IRL at the location indicated in another text field labelled 'root'. 
+#
 ##########################################################################################################################################################
 
 search_term = input("Input the code we're searching for: \n")
-walker(root_directory, search_term)
+for file in file_walker(root_directory, ""):
+    code_injector(injection, Path(file))
