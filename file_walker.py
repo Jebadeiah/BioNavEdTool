@@ -2,7 +2,7 @@ from os import path
 from pathlib import Path
 
 
-def term_in_file(term, file):
+def term_in_file(file, term):
     with open(file, 'r') as fp:
         contents = fp.read()
         if term in contents:
@@ -19,5 +19,5 @@ def file_walker(file_path, search_term):
             continue
         else:
             print("Web page!")
-            if term_in_file(search_term, p):
+            if term_in_file(p, search_term):
                 return p
